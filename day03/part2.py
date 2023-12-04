@@ -2,12 +2,10 @@
 filename = "day3-input.txt"
 
 def isnum(elm):
-    
     return elm == "0" or elm == "1" or elm == "2" or elm == "3" or elm == "4" or elm == "5" or elm == "6" or elm == "7" or elm == "8" or elm == "9"
 
 def issymbol(elm):
     return (not isnum(elm)) and elm != '.' and elm != '\n' and elm != ''
-
 
 def build_matrix(filename):
     cols = 0
