@@ -1,4 +1,4 @@
-filename = "input.txt"
+filename = "example.txt"
 import sys
 
 class Range:
@@ -131,7 +131,7 @@ sort_maps()
 print("maps sorted")
 # make_lists_len_one()
 # print("lists len one")
-# print_maps()
+print_maps()
 
 
 # Returns index of x in arr if present, else -1
@@ -143,25 +143,22 @@ def binary_search(arr, low, high, x):
         if arr[mid].min <= x and arr[mid].max >= x:
             diff = x - arr[mid].min
             return arr[mid].dest + diff
-        # If element is smaller than mid, then it can only
-        # be present in left subarray
-        elif arr[mid] > x:
+        # If element is greater than mid.min, then it can only
+        # be present in right subarray
+        elif arr[mid].min > x:
             return binary_search(arr, low, mid - 1, x)
-        # Else the element can only be present in right subarray
+        # Else the element can only be present in left subarray
         else:
             return binary_search(arr, mid + 1, high, x)
     else:
         # Element is not present in the array
-        return -1
+        return x
 
 
 def get_mapping(key, list):
+    # return binary_search(list, 0, len(list)-1, key)
     value = key
-    for range in list:
-        if key >= range.min and key <= range.max:
-            diff = key - range.min
-            value = range.dest + diff
-    return value
+    
 
 def get_location(seed):
     soil = get_mapping(seed, seed_to_soil)
@@ -183,7 +180,9 @@ for seed in seeds:
     percentage = i / len(seeds)
     if percentage - cur  >= 0.01:
         cur = percentage
-        print("{:.0f}".format( cur*100 ) + "%") 
+        # print("{:.0f}".for
+        # 
+        # mat( cur*100 ) + "%") 
 
 print(min_location)
 
