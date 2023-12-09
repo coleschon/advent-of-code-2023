@@ -1,19 +1,11 @@
+import sys
+sys.path.append('/Users/cperschon/sources-external/advent-of-code-2023/')
 
-filename = "in.txt"
+from utils import split_lists, intify
+
+filename = "ex.txt"
 
 # ---------------------------------------- HELPERS ----------------------------------------
-def split_lists():
-    lists = []
-    with open(filename) as file:
-        for line in file:
-            lists.append(line.split())
-    return lists
-
-def inty(list):
-    for i in range(0, len(list)):
-        list[i] = int(list[i])
-    return list
-
 def all_zero(list):
     for elm in list:
         if elm != 0:
@@ -30,9 +22,9 @@ def file_prediction(file):
 # -----------------------------------------------------------------------------------------
 
 sums = 0
-lists = split_lists()
+lists = split_lists(filename)
 for list in lists:
-    list = inty(list)
+    list = intify(list)
     print(file_prediction(list))
     sums += file_prediction(list)
 
