@@ -2,7 +2,7 @@
 from itertools import cycle
 from math import lcm
 
-filename = "input.txt"
+filename = "example3.txt"
 
 # ---------------------------------------- HELPERS ----------------------------------------
 class Node:
@@ -91,13 +91,19 @@ starting_nodes = get_starting_nodes(nodes)
 lens = []
 for current in starting_nodes:
     plen = 0
+
     i = 0
+    print(current)
     while current.value[-1] != 'Z':
         dir = directions[i]
         if dir == 'L': current = nodes[current.left]
         else: current = nodes[current.right]
         i = i+1 if i < len(directions)-1 else 0
         plen += 1
+        print(current)
+
+
+    print()
     lens.append(plen)
 
 
