@@ -1,5 +1,5 @@
 
-filename = "example3.txt"
+filename = "input.txt"
 
 # ---------------------------------------- HELPERS ----------------------------------------
 class Node:
@@ -56,10 +56,12 @@ for i in range(2, len(lists)):
     node = Node(line[0], line[2].strip("(,)"), line[3].strip("(,)"))
     nodes[node.value] = node
 
+tot = 0
 i = 0
 steps = 0
 current_nodes = get_starting_nodes(nodes)
 while not all_nodes_finished(current_nodes):
+    print(tot)
     dir = directions[i]
     steps += 1
     for j in range(0, len(current_nodes)):
@@ -68,5 +70,6 @@ while not all_nodes_finished(current_nodes):
         else: current = nodes[current.right]
         current_nodes[j] = current
     i = i+1 if i < len(directions)-1 else 0
+    tot += 1
 
 print(steps)
