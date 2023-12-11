@@ -26,10 +26,10 @@ class Pos:
         return not (self == other)
 
 def expand(mat):
-
     rows = len(mat)
     cols = len(mat[0])
 
+    # dupe rows
     empty_rows = []
     for row in range(0, rows):
         count = 0
@@ -38,14 +38,13 @@ def expand(mat):
                 break
             count += 1
         if count == cols: empty_rows.append(row)
-    # print(empty_rows)
-
     extra = 0
     for empty in empty_rows:
         mat.insert(empty + extra, ['x'] * cols)
         extra += 1
         rows += 1
 
+    # dupe cols
     empty_cols = []
     for col in range(0, cols):
         count = 0
@@ -53,18 +52,12 @@ def expand(mat):
             if mat[row][col] != '.' and mat[row][col] != 'x':
                 break
             count += 1
-        if count == rows: empty_cols.append(col) 
-    # print(empty_cols)
-
-
+        if count == rows: empty_cols.append(col)
     extra = 0
     for empty in empty_cols:
         for row in range(0, rows):
             mat[row].insert(empty + extra, 'x')
         extra += 1
-    # print(cols
-    # 
-    # )  
 
 def get_galaxies(mat):
     rows = len(mat)
@@ -83,15 +76,13 @@ def is_valid(pos, mat, visited):
     cols = len(mat[0])
 
     # If cell lies out of bounds
-    if (pos.row < 0 or pos.col < 0 or pos.row >= rows or pos.col >= cols): return False
+    if (pos.row < 0 or pos.col < 0 or pos.row >= rows or pos.col >= cols):
+        return False
 
     # If cell is already visited
-    # for row in visi
-
     if visited[pos.row][pos.col]:
         return False
  
-    # Otherwise
     return True
 
 def closest_neighbor_dist(galaxy, mat):
@@ -101,11 +92,9 @@ def closest_neighbor_dist(galaxy, mat):
     queue.append(galaxy)
     visited = [[False for _ in range(cols)] for _ in range(rows)]
     distance = [[0 for _ in range(cols)] for _ in range(rows)]
-    # visited[galaxy.row][galaxy.col] = True
     
     paths = []
     while len(queue) > 0:
-        # print(queue)
         pos = queue.pop(0)
 
         if mat[pos.row][pos.col] == '#' and visited[pos.row][pos.col]: paths.append(distance[pos.row][pos.col])
@@ -133,24 +122,20 @@ def closest_neighbor_dist(galaxy, mat):
             visited[pos.row][pos.col-1] = True
             if mat[pos.row][pos.col] == 'x': distance[pos.row][pos.col-1] = distance[pos.row][pos.col]+SCALAR-1
             else: distance[pos.row][pos.col-1] = distance[pos.row][pos.col]+1
-
         if is_valid(right, mat, visited):
             queue.append(right)
-
-
             visited[pos.row][pos.col+1] = True
             if mat[pos.row][pos.col] == 'x': distance[pos.row][pos.col+1] = distance[pos.row][pos.col]+SCALAR-1
             else: distance[pos.row][pos.col+1] = distance[pos.row][pos.col]+1
     
     return paths
-
 # -----------------------------------------------------------------------------------------
 
 mat = get_mat(filename)
-print_mat(mat)
+# print_mat(mat)
 expand(mat)
-print()
-print_mat(mat)
+# print()
+# print_mat(mat)
 
 tot = 0
 galaxies = get_galaxies(mat)
@@ -158,6 +143,4 @@ for galaxy in galaxies:
     closest = closest_neighbor_dist(galaxy, mat)
     mat[galaxy.row][galaxy.col] = 'x'
     tot += sum(closest)
-    # break
-
 print(tot)
