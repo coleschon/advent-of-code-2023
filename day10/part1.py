@@ -9,7 +9,6 @@ filename = sys.argv[1]
 
 # ---------------------------------------- HELPERS ----------------------------------------
 class Pos:
-
     def __init__(self, row, col):
         self.row = row
         self.col = col
@@ -71,7 +70,7 @@ def get_next_pipe(pos, mat, seen):
         if pos.col+1 < cols and right not in seen: return right  # right
 
     return Pos(-1, -1)
-    
+
 # -----------------------------------------------------------------------------------------
 
 mat = get_mat(filename)
